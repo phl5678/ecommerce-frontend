@@ -1,0 +1,53 @@
+<div>
+    <div *ngIf="cart.length > 0; else empty" [ngClass]="'cart-container'">
+        <div  [ngClass]="'cart-item'">
+            <div  [ngClass]="'cart-item-details'">
+                <div *ngFor="let item of cart"  [ngClass]="'cart-item'">
+                    <div><img src='{{ item.url }}' /></div>
+                    <div [ngClass]="'cart-item-details'">
+                        <div><b>{{ item.name }}</b></div>
+                        <div>{{ item.price.toLocaleString('en-US', {style: 'currency', currency:'USD'}) }}</div>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Quantity</mat-label>
+                            <mat-select name="quantity" [(ngModel)]="item.quantity" (ngModelChange)="onQuantityChange(item)">
+                                <mat-option *ngFor="let v of quantities" [value]="v">
+                                {{v}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        
+                    </div>
+                </div>
+                <div><h2>Total: {{ totalPrice().toLocaleString('en-US', {style: 'currency', currency:'USD'}) }}</h2></div>
+            </div>
+
+            <div [ngClass]="'cart-panel'">
+                <h3>Shipping & Payment</h3>
+                <form #form="ngForm" (ngSubmit)="onPlaceOrder()">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Full name</mat-label>
+                        <input matInput type="text" placeholder="(minimum 3 characters)" required minlength="3" name="fullname" [(ngModel)]="order.fullname" #fullnameField="ngModel">
+                        <mat-error *ngIf="fullnameField.invalid">The fullname is required and must contain at least 3 characters.</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <input matInput type="text" placeholder="(minimum 6 characters)" required minlength="6" name="address" [(ngModel)]="order.address" #addressField="ngModel" >
+                        <mat-error *ngIf="addressField.invalid">The address is required and must contain at least 6 characters.</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Credit card number</mat-label>
+                        <input matInput type="number" placeholder="(16-digits)" required pattern="[0-9]{16}" name="ccnumber" [(ngModel)]="order.ccnumber" #ccnumberField="ngModel" >
+                        <mat-error *ngIf="ccnumberField.invalid">The credit card number is required and must contain 16 digits.</mat-error>
+                    </mat-form-field>
+                    
+                    <div [ngClass]="'form-margin'">
+                        <button type="submit" [disabled]="!form.valid" mat-raised-button color="primary" >Place Order</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <ng-template #empty><div [ngClass]="'empty-cart-message'">Your shopping cart is empty!</div></ng-template>
+</div>
