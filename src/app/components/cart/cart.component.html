@@ -1,4 +1,4 @@
-<div>
+<div class="cart-wrapper">
     <div *ngIf="cart.length > 0; else empty" [ngClass]="'cart-container'">
         <div  [ngClass]="'cart-item'">
             <div  [ngClass]="'cart-item-details'">
@@ -25,24 +25,24 @@
             <div [ngClass]="'cart-panel'">
                 <h3>Shipping & Payment</h3>
                 <form #form="ngForm" (ngSubmit)="onPlaceOrder()">
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" [ngClass]="'custom-form-field'">
                         <mat-label>Full name</mat-label>
                         <input matInput type="text" placeholder="(minimum 3 characters)" required minlength="3" name="fullname" [(ngModel)]="order.fullname" #fullnameField="ngModel">
                         <mat-error *ngIf="fullnameField.invalid">The fullname is required and must contain at least 3 characters.</mat-error>
                     </mat-form-field>
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" [ngClass]="'custom-form-field'">
                         <mat-label>Address</mat-label>
                         <input matInput type="text" placeholder="(minimum 6 characters)" required minlength="6" name="address" [(ngModel)]="order.address" #addressField="ngModel" >
                         <mat-error *ngIf="addressField.invalid">The address is required and must contain at least 6 characters.</mat-error>
                     </mat-form-field>
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" [ngClass]="'custom-form-field'">
                         <mat-label>Credit card number</mat-label>
                         <input matInput type="number" placeholder="(16-digits)" required pattern="[0-9]{16}" name="ccnumber" [(ngModel)]="order.ccnumber" #ccnumberField="ngModel" >
                         <mat-error *ngIf="ccnumberField.invalid">The credit card number is required and must contain 16 digits.</mat-error>
                     </mat-form-field>
                     
                     <div [ngClass]="'form-margin'">
-                        <button type="submit" [disabled]="!form.valid" mat-raised-button color="primary" >Place Order</button>
+                        <button type="submit" [disabled]="!form.valid" mat-flat-button color="accent" [ngClass]="'custom-button'">Place Order</button>
                     </div>
                 </form>
             </div>

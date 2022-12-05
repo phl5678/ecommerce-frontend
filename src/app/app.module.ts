@@ -41,7 +41,7 @@ import {
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },

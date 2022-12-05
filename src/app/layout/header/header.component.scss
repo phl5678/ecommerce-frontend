@@ -2,12 +2,31 @@
 
 .header {
   text-align: center;
-  background: $primary-palette;
-  color: #fff;
-  padding: 12px;
+  background: white;
+  color: $primary-palette;
+  padding-top: 20px;
+  filter: drop-shadow(0 1mm 1mm rgba(0,0,0,.1));
+
+  
+
+  h1 {
+    margin: 0 0 20px 0;
+  }
+  nav {
+    padding-bottom: 10px;
+  }
+  
 }
 
-a {
-  color: #ffffff;
+
+a, a:visited {
+  color: $accent-palette;
   padding: 10px;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+a:hover, a.active-link {
+  color: $accent-palette;
+  box-shadow: inset 0 -2px 0 $accent-palette;
 }

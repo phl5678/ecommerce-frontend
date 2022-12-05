@@ -1,18 +1,24 @@
-<div>
-    <div><a routerLink="/products/{{ product.id }}"><img src='{{ product.url }}' [ngClass]="'product-image'" /></a></div>
-    <div><b>{{ product.name }}</b></div>
-    <div>{{ product.price.toLocaleString('en-US', {style: 'currency', currency:'USD'}) }}</div>
-    
-    <mat-form-field appearance="outline">
-        <mat-label>Quantity</mat-label>
-        <mat-select name="quantity" [(ngModel)]="product.quantity" [ngClass]="'select-input'" (ngModelChange)="product.quantity=product.quantity===undefined?0:+product.quantity">
-            <mat-option *ngFor="let v of quantities" [value]="v">
-            {{v}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    
+<div [ngClass]="'product-item-wrapper'">
     <div>
-        <button (click)="onAddtoCart(product)" mat-raised-button color="primary">Add to Cart</button>
+        <a routerLink="/products/{{ product.id }}"><img src='{{ product.url }}' [ngClass]="'product-image'" /></a>
     </div>
+    <div [ngClass]="'product-info'">
+        <div>
+            <div [ngClass]="'product-name'">{{ product.name }}</div>
+            <div [ngClass]="'product-price'">{{ product.price.toLocaleString('en-US', {style: 'currency', currency:'USD'}) }}</div>
+        </div>
+        <div class="add-to-cart" >
+            <mat-form-field appearance="outline" [ngClass]="'custom-form-field'">
+                <!-- <mat-label>Quantity</mat-label> -->
+                <mat-select name="quantity" [(ngModel)]="product.quantity" (ngModelChange)="product.quantity=product.quantity===undefined?0:+product.quantity">
+                    <mat-option *ngFor="let v of quantities" [value]="v" >
+                    {{v}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button (click)="onAddtoCart(product)" mat-stroked-button color="accent" [ngClass]="'custom-button'">Add to Cart</button>
+        </div>    
+    </div>
+      
+      
 </div>

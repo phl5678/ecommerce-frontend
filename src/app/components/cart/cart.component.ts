@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order } from 'src/app/models/order.model';
 import { Product } from 'src/app/models/product.model';
+import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -9,45 +11,39 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  @Input() cart: Product[] = [];
+  cart: Product[] = [];
   quantities: number[] = [...Array(21).keys()].map((_, i) => i);
   order: Order = new Order();
-  @Output() cartItemRemoved = new EventEmitter();
-  @Output() orderPlaced = new EventEmitter();
 
   fullname = '';
   address = '';
   ccnumber = '';
 
-  constructor(private orderService: OrderService) {}
+  constructor(private cartService: CartService,private orderService:OrderService, private router: Router) {}
 
   totalPrice(): number {
-    return this.cart.reduce(
-      (accumulator: number, currentValue: Product) =>
-        accumulator +
-        currentValue.price *
-          (currentValue.quantity === undefined ? 0 : currentValue.quantity),
-      0
-    );
+    return this.cartService.getTotalPrice();
   }
 
   ngOnInit(): void {
-    // this.orderService.getCart().subscribe(data => {
-    //   this.cart = data;
-    // })
+    this.cartService.getCart().subscribe(data => {
+      this.cart = data;
+    })
   }
 
-  onQuantityChange(item: Product): void {
-    item.quantity = item.quantity === undefined ? 0 : +item.quantity;
-    if (item.quantity === 0) {
-      this.cartItemRemoved.emit(item);
+  onQuantityChange(product: Product): void {
+    product.quantity = product.quantity === undefined ? 0 : +product.quantity;
+    this.cartService.updateCart(product);
+    if (product.quantity === 0) {
+      alert(`${product.name} is removed from cart`);
     }
-    //TODO: update cart service
   }
 
   onPlaceOrder(): void {
-    (this.order.totalPrice = this.totalPrice()),
-      (this.order.products = this.cart);
-    this.orderPlaced.emit(this.order);
+    this.order.totalPrice = this.totalPrice();
+    this.order.products = this.cart;
+    this.orderService.submitOrder(this.order);
+    this.cartService.clearCart();
+    this.router.navigateByUrl('/confirmation');
   }
 }

@@ -1,33 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../models/product.model';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
-import * as data from '../../assets/data.json';
+import { Order } from '../models/order.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class OrderService {
-  constructor(private http: HttpClient) {}
+  static nextOrderId: number = 100;
+  order: Order = new Order();
+  constructor() { }
 
-  getProducts(): Observable<Product[]> {
-    return of((data as any).default);
-    //return this.http.get<[]>("http://localhost:4200/assets/data.json");
-  }
-  getProductById(id: number): Observable<Product> {
-    return this.getProducts().pipe(
-      map((products: Product[]) => products.find((prod) => prod.id === id)!)
-    );
+  submitOrder(order:Order): void {
+    OrderService.nextOrderId++
+    order.id = OrderService.nextOrderId;
+    this.order = order;
   }
 
-  getCart(): Observable<Product[]> {
-    return of([]);
+  getCurrentOrder(): Order {
+    return this.order;
   }
-  addToCart(item: Product): Observable<Product[]> {
-    return of([]);
+
+  clearCurrentOrder(): void {
+    this.order = new Order();
   }
-  updateCart(id: number): Observable<Product[]> {
-    return of([]);
-  }
-  clearCart(): void {}
+
 }

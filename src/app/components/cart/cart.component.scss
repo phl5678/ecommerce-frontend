@@ -1,12 +1,13 @@
+@import '../../../styles/_variables';
+
 img {
   width: 100px;
   border-radius: 10px;
 }
 
-// .form-margin {
-//   margin-bottom: 12px;
-// }
-
+.cart-wrapper {
+  color: $primary-palette;
+}
 .cart-item {
   display: flex;
   flex-direction: row;
@@ -36,6 +37,14 @@ img {
   margin-left: 50px;
   margin-right: 50px;
   width: 300px;
+}
+
+.custom-form-field {
+  width: 100%;
+}
+.custom-button {
+  width: 100%;
+  height: 63px;
 }
 
 .empty-cart-message {

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/product.model';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -7,17 +7,13 @@ import { Product } from 'src/app/models/product.model';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Input() cart: Product[] = [];
-
-  cartQuantity(): number {
-    return this.cart.reduce(
-      (accumulator, currentValue) =>
-        accumulator +
-        (currentValue.quantity === undefined ? 0 : currentValue.quantity),
-      0
-    );
-  }
-  constructor() {}
+  
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {}
+
+  cartQuantity(): number {
+    return this.cartService.getCartQuantity();
+  }
+
 }

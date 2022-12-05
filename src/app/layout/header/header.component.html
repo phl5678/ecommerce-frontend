@@ -2,7 +2,7 @@
   <h1>My Store</h1>
 
   <nav>
-    <a routerLink="/">Product List</a>
-    <a routerLink="/cart">Cart <span *ngIf="cartQuantity()>0">({{ cartQuantity() }})</span></a>
+    <a routerLink="/products" routerLinkActive="active-link">Product List</a>
+    <a routerLink="/cart" routerLinkActive="active-link">Cart <span *ngIf="cartQuantity()>0">({{ cartQuantity() }})</span></a>
   </nav>
 </div>

@@ -1,18 +1,22 @@
+@import '../../../styles/_variables';
+
 img {
   border-radius: 10px;
   width: 320px;
 }
-
-// .select-input {
-//   width: 108px; 
-//   margin-bottom: 8px;
-// }
 
 .detail-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 64px;
+  color: $primary-palette;
+}
+
+.custom-button {
+  height: 60px;
+  position: relative;
+  top: -5.5px;
 }
 
 .detail-item {
