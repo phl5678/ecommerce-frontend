@@ -22,7 +22,8 @@
                 <div><h2>Total: {{ totalPrice().toLocaleString('en-US', {style: 'currency', currency:'USD'}) }}</h2></div>
             </div>
 
-            <div [ngClass]="'cart-panel'">
+
+            <div *ngIf="isAuthenticated" [ngClass]="'cart-panel'">
                 <h3>Shipping & Payment</h3>
                 <form #form="ngForm" (ngSubmit)="onPlaceOrder()">
                     <mat-form-field appearance="outline" [ngClass]="'custom-form-field'">
@@ -46,7 +47,9 @@
                     </div>
                 </form>
             </div>
-
+            <div *ngIf="!isAuthenticated" [ngClass]="'cart-panel'">
+                Please <button type="button" mat-stroked-button color="accent" (click)="signIn()">Sign In</button> or <button type="button" mat-stroked-button color="accent" (click)="signUp()">Sing Up</button> to check out your cart.
+            </div>
         </div>
     </div>
     <ng-template #empty><div [ngClass]="'empty-cart-message'">Your shopping cart is empty!</div></ng-template>

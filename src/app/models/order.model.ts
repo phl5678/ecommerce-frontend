@@ -1,3 +1,4 @@
+import { User } from '@auth0/auth0-angular';
 import { Product } from './product.model';
 
 export class Order {
@@ -7,6 +8,7 @@ export class Order {
   ccnumber: string;
   products: Product[];
   totalPrice: number;
+  user: User;
 
   constructor() {
     this.id = 0;
@@ -15,5 +17,6 @@ export class Order {
     this.ccnumber = '';
     this.products = [];
     this.totalPrice = 0;
+    this.user = new User();
   }
 }

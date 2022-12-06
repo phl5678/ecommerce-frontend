@@ -20,6 +20,10 @@ import {
   ErrorStateMatcher,
   ShowOnDirtyErrorStateMatcher,
 } from '@angular/material/core';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +35,7 @@ import {
     ProductListComponent,
     HeaderComponent,
     PageNotFoundComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,8 @@ import {
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthModule.forRoot(environment.auth0)
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },

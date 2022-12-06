@@ -4,5 +4,11 @@
   <nav>
     <a routerLink="/products" routerLinkActive="active-link">Product List</a>
     <a routerLink="/cart" routerLinkActive="active-link">Cart <span *ngIf="cartQuantity()>0">({{ cartQuantity() }})</span></a>
+    <a routerLink="" (click)="signIn()" *ngIf="!isAuthenticated">Sign In</a>
+    <a routerLink="" (click)="signUp()" *ngIf="!isAuthenticated">Sign Up</a>
+    
+    <a class="nav-link" routerLink="/profile" routerLinkActive="active-link" *ngIf="isAuthenticated">Profile</a>
+    <a class="nav-link" routerLink="" (click)="signOut()" *ngIf="isAuthenticated">Sign Out</a>
   </nav>
+  
 </div>

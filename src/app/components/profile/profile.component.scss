@@ -1,0 +1,17 @@
+@import '../../../styles/variables';
+
+.profile-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items:stretch;
+    justify-content: center;
+    margin-top: 3%;
+    color: $primary-palette;
+    max-width: 960px;
+    margin: auto;
+    padding-top: 20px;
+  }
+  
+  .profile-item {
+    padding: 20px;
+  }

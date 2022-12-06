@@ -9,11 +9,25 @@ export class CartService {
   cart: Product[] = [];
 
   constructor() { }
-  
-  getCart(): Observable<Product[]> {
-    return of(this.cart);
+
+  loadCart(): void {
+    const cartString:string = localStorage.getItem('cart_items')!;
+    this.cart = JSON.parse(cartString) ?? [];
   }
-  addToCart(product: Product): Observable<Product[]> {
+  saveCart(): void {
+    localStorage.setItem('cart_items', JSON.stringify(this.cart));
+  }
+  
+  clearCart(): void {
+    this.cart = [];
+    localStorage.removeItem('cart_items');
+  }
+
+  getCart(): Product[] {
+    return this.cart;
+  }
+
+  addToCart(product: Product): void {
     const existing = this.cart.findIndex((v) => v.id === product.id);
     if (existing >= 0) {
       const item: Product = this.cart[existing];
@@ -27,9 +41,11 @@ export class CartService {
     } else {
       this.cart.push({ ...product });
     }
-    return of(this.cart);
+
+    this.saveCart();
   }
-  updateCart(product: Product): Observable<Product[]> {
+
+  updateCart(product: Product): void {
     const index = this.cart.findIndex((p) => p.id === product.id);
     if (product.quantity === 0) {    
         this.cart.splice(index, 1);
@@ -37,13 +53,16 @@ export class CartService {
     else {
         this.cart[index].quantity = product.quantity;
     }
-    return of(this.cart);
-  }
-  clearCart(): void {
-    this.cart = [];
+    if(this.cart.length > 0){
+      this.saveCart();
+    }
+    else {
+      this.clearCart();
+    }
   }
 
   getCartQuantity(): number {
+    this.loadCart();
     return this.cart.reduce(
       (accumulator, currentValue) =>
         accumulator +
