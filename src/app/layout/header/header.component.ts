@@ -7,8 +7,7 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  
-  @Input() isAuthenticated: boolean = false;
+  @Input() isAuthenticated = false;
   @Output() onSignOut = new EventEmitter();
   @Output() onSignIn = new EventEmitter();
   @Output() onSignUp = new EventEmitter();
@@ -30,5 +29,4 @@ export class HeaderComponent implements OnInit {
   signOut(): void {
     this.onSignOut.emit();
   }
-
 }

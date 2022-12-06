@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
-import { catchError, map, Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import * as data from '../../assets/data.json';
 
 @Injectable({
@@ -9,23 +9,22 @@ import * as data from '../../assets/data.json';
 export class ProductService {
   constructor() {}
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-  
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
+  /**
+   * Get a list of products from data.json
+   * @returns a list of products
+   */
   getProducts(): Observable<Product[]> {
+    //TODO: get from database via API endpoint
     return of((data as any).default);
   }
-  getProductById(id: number): Observable<Product|undefined> {
+  /**
+   * Get a single product by ID.
+   * @param id the Product ID
+   * @returns product or undefined if not found.
+   */
+  getProductById(id: number): Observable<Product | undefined> {
     return this.getProducts().pipe(
-      map((products: Product[]) => products.find((prod) => prod.id === id)!),
-      catchError(this.handleError<Product>(`getProductById id=${id}`))
+      map((products: Product[]) => products.find((prod) => prod.id === id)!)
     );
   }
 }

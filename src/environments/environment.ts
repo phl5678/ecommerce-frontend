@@ -8,7 +8,7 @@ export const environment = {
     domain: 'dev-cgpnwwg6r2y4e58s.us.auth0.com',
     clientId: 'K3OVy1EdvFRqcu98auL1htHCEzpDDTa3',
     redirectUri: 'http://localhost:4200/profile',
-  }
+  },
 };
 
 /*
@@ -19,4 +19,3 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
-

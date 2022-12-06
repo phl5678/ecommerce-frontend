@@ -1,4 +1,4 @@
-import { Component, ComponentRef, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Order } from './models/order.model';
 import { DOCUMENT } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
@@ -12,10 +12,13 @@ import { CartComponent } from './components/cart/cart.component';
 export class AppComponent implements OnInit {
   title = 'My Store';
   order: Order = new Order();
-  isAuthenticated: boolean = false;
+  isAuthenticated = false;
   isAuth0Loading$ = this.authService.isLoading$;
-  
-  constructor(@Inject(DOCUMENT) private document: Document, private authService: AuthService) {}
+
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.authService.isAuthenticated$.subscribe((success: boolean) => {
@@ -24,28 +27,26 @@ export class AppComponent implements OnInit {
   }
 
   signIn(redirectUrl?: string): void {
-    if(redirectUrl !== undefined){
+    if (redirectUrl !== undefined) {
       this.authService.loginWithRedirect({
         appState: {
           target: redirectUrl,
         },
       });
-    }
-    else {
-    this.authService.loginWithRedirect();
+    } else {
+      this.authService.loginWithRedirect();
     }
   }
   signUp(redirectUrl?: string): void {
-    if(redirectUrl !== undefined){
+    if (redirectUrl !== undefined) {
       this.authService.loginWithRedirect({
         screen_hint: 'signup',
         appState: {
           target: redirectUrl,
         },
       });
-    }
-    else {
-    this.authService.loginWithRedirect({ screen_hint: 'signup' });
+    } else {
+      this.authService.loginWithRedirect({ screen_hint: 'signup' });
     }
   }
   signOut(): void {
@@ -54,17 +55,17 @@ export class AppComponent implements OnInit {
     });
   }
   onActivate(comp: Component): void {
-    if (comp instanceof CartComponent){
+    if (comp instanceof CartComponent) {
       comp.isAuthenticated = this.isAuthenticated;
-      if (this.isAuthenticated === true){
+      if (this.isAuthenticated === true) {
         this.authService.user$.subscribe((success: any) => {
           comp.user = success;
         });
       }
-      comp.onSignIn.subscribe(()=>{
+      comp.onSignIn.subscribe(() => {
         this.signIn('/cart');
       });
-      comp.onSignUp.subscribe(()=>{
+      comp.onSignUp.subscribe(() => {
         this.signUp('/cart');
       });
     }

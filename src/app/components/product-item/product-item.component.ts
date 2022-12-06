@@ -23,5 +23,4 @@ export class ProductItemComponent implements OnInit {
     alert(`${product.quantity} x ${product.name} is added to cart`);
     this.product.quantity = 1;
   }
-
 }

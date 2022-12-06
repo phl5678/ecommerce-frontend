@@ -24,7 +24,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from '../environments/environment';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +46,7 @@ import { environment } from '../environments/environment';
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
-    AuthModule.forRoot(environment.auth0)
+    AuthModule.forRoot(environment.auth0),
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },

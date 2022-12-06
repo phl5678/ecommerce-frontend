@@ -12,12 +12,12 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
-    this.orderService.getCurrentOrder().subscribe(data => {
+    this.orderService.getCurrentOrder().subscribe((data) => {
       this.order = data;
     });
   }
 
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     this.order = new Order();
     this.orderService.clearCurrentOrder().subscribe();
   }

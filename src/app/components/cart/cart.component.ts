@@ -12,7 +12,7 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  isAuthenticated: boolean = false;
+  isAuthenticated = false;
   user: User = new User();
   cart: Product[] = [];
   quantities: number[] = [...Array(21).keys()].map((_, i) => i);
@@ -24,7 +24,11 @@ export class CartComponent implements OnInit {
   address = '';
   ccnumber = '';
 
-  constructor(private cartService: CartService,private orderService:OrderService, private router: Router) {}
+  constructor(
+    private cartService: CartService,
+    private orderService: OrderService,
+    private router: Router
+  ) {}
 
   totalPrice(): number {
     return this.cartService.getTotalPrice();
@@ -48,13 +52,14 @@ export class CartComponent implements OnInit {
     this.onSignIn.emit();
   }
   signUp(): void {
-   this.onSignUp.emit();
+    this.onSignUp.emit();
   }
   onPlaceOrder(): void {
-      this.orderService.submitOrder(this.order, this.user, this.cart, this.totalPrice()).subscribe();
-      this.cartService.clearCart();
-      this.cart = [...this.cartService.getCart()];
-      this.router.navigateByUrl('/confirmation');
-    
+    this.orderService
+      .submitOrder(this.order, this.user, this.cart, this.totalPrice())
+      .subscribe();
+    this.cartService.clearCart();
+    this.cart = [...this.cartService.getCart()];
+    this.router.navigateByUrl('/confirmation');
   }
 }
