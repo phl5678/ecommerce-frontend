@@ -1,10 +1,11 @@
-# MyStore Project Overview
+# Udacity---my-store
 
 MyStore is Angular application that allows users to view a list of available products to purchase, add them to a shopping cart, and ultimately complete the checkout process. 
 
 ## Setup Instructions
 1. Download this git to your local machine.
 2. Use your own IDE (eg. Visual Studio Code) and run `npm install` and `npm start` in the terminual to launch the application.
+3. Open http://localhost:4200 in your browser and start testing.
 
 ## Testing Instruction
 1. Product viewing & add to cart workflow
