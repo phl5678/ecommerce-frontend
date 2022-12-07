@@ -22,4 +22,7 @@ MyStore is Angular application that allows users to view a list of available pro
    - Sign in/up using the Sign In/Up link in the header
    - Once signed in, you should be able to view the profile page.
    - The cart content should be carried over if there is any before you signed in.
+4. Page not found testing
+   - In the product detail page, if product id not valid, it should redirect to page not found. e.g. http://localhost:4200/products/999
+   - Any path other than /products, /cart, /confirmation, and /profile should redirect to page not found.
 
