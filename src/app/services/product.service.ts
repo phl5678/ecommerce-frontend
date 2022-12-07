@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
-import { map, Observable, of } from 'rxjs';
-import * as data from '../../assets/data.json';
+import { map, Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get a list of products from data.json
@@ -15,7 +15,7 @@ export class ProductService {
    */
   getProducts(): Observable<Product[]> {
     //TODO: get from database via API endpoint
-    return of((data as any).default);
+    return this.httpClient.get<[]>('assets/data.json');
   }
   /**
    * Get a single product by ID.
