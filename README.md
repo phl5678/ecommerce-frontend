@@ -22,6 +22,3 @@ MyStore is Angular application that allows users to view a list of available pro
    - Once signed in, you should be able to view the profile page.
    - The cart content should be carried over if there is any before you signed in.
 
-## License
-
-[License](LICENSE.txt)
